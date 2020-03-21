@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNetCore.Http
+<div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="~/images/adminlte/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="d-block">@Context.Session.GetString("Username")</a>
+        </div>
+    </div>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+            @if (Context.Session.GetString("Role") == "Admin")
+            {
+                <li class="nav-item has-treeview">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-question-circle"></i>
+                        <p>
+                            Management Data
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/Dashboard/" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Questions/" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <p>
+                                    Questions
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Options/" class="nav-link">
+                                <i class="nav-icon fas fa-filter"></i>
+                                <p>
+                                    Options
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Points/" class="nav-link">
+                                <i class="nav-icon fas fa-plus"></i>
+                                <p>
+                                    Points
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Rooms/" class="nav-link">
+                                <i class="nav-icon fab fa-buffer"></i>
+                                <p>
+                                    Rooms
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Events/" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Events
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (Context.Session.GetString("Role") == "Staff")
+            {
+                <li class="nav-item has-treeview">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Users
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/DashboardUser/" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/UserEvents/" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Events
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Feedbacks/" class="nav-link">
+                                <i class="nav-icon fas fa-comments"></i>
+                                <p>
+                                    Feedbacks
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (Context.Session.GetString("Role") == "Presentator")
+            {
+                <li class="nav-item has-treeview">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Presentators
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/DashboardPresentator/" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/PresentatorEvents/" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Events
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/PresentatorFeedbacks/" class="nav-link">
+                                <i class="nav-icon fas fa-comments"></i>
+                                <p>
+                                    Feedbacks
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            <li class="nav-item">
+                <a href="/Logout" class="nav-link">
+                    <i class="nav-icon fas fa-sign-in-alt"></i>
+                    <p>
+                        Logout
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>

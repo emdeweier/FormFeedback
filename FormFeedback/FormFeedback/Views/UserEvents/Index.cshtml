@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewData["Title"] = "Events";
+}
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Event You Attended</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive m-0">
+                <table class="table table-striped table-bordered" id="events">
+                    <thead>
+                        <tr>
+                            <th width="5%">No.</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Presentator</th>
+                            <th>Room</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evt in ViewBag.Events)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@evt.Name</td>
+                                <td>@evt.Date.ToString("dd MMMM yyyy")</td>
+                                <td>@evt.StartTime.ToString("HH:mm") - @evt.EndTime.ToString("HH:mm")</td>
+                                <td>@evt.PresentatorName</td>
+                                <td>@evt.Room</td>
+                                <td>
+                                    <button class='btn btn-primary' onclick=fGetById("@evt.Id");>Fill Feedback</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+            <div class="modal fade" id="feedback-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Feedback Form</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <input type="hidden" class="form-control" id="eIdText" placeholder="Id" />
+                                <div class="form-group col-md-12 mb-2">
+                                    <span id="eName"></span>
+                                    <br />
+                                    <span id="ePlaceandDateName"></span>
+                                </div>
+                                <div class="col-md-5 mb-2">
+                                    <table class="table-sm table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nilai</th>
+                                                <th>Keterangan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var pts in ViewBag.Points)
+                                            {
+                                                <tr>
+                                                    <td>@pts.Value</td>
+                                                    <td>@pts.Note</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    A. Materi
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <table class="table-sm table-bordered" id="questA">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>1</th>
+                                                <th>2</th>
+                                                <th>3</th>
+                                                <th>4</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var qA in ViewBag.QuestionA)
+                                            {
+                                                <tr>
+                                                    <td>@qA.Q_Name</td>
+                                                    <td><input type="radio" value="1" name="@qA.Id" id="@qA.Id"></td>
+                                                    <td><input type="radio" value="2" name="@qA.Id" id="@qA.Id"></td>
+                                                    <td><input type="radio" value="3" name="@qA.Id" id="@qA.Id"></td>
+                                                    <td><input type="radio" value="4" name="@qA.Id" id="@qA.Id"></td>
+                                                    <td><textarea></textarea></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    B. Presentator
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table-sm table-bordered" id="questB">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>1</th>
+                                                <th>2</th>
+                                                <th>3</th>
+                                                <th>4</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var qB in ViewBag.QuestionB)
+                                            {
+                                                <tr>
+                                                    <td>@qB.Q_Name</td>
+                                                    <td><input type="radio" name="@qB.Id" id="@qB.Id"></td>
+                                                    <td><input type="radio" name="@qB.Id" id="@qB.Id"></td>
+                                                    <td><input type="radio" name="@qB.Id" id="@qB.Id"></td>
+                                                    <td><input type="radio" name="@qB.Id" id="@qB.Id"></td>
+                                                    <td><textarea></textarea></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    C. Penyelenggaraan Pelatihan
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table-sm table-bordered" id="questC">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>1</th>
+                                                <th>2</th>
+                                                <th>3</th>
+                                                <th>4</th>
+                                                <th>Note</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var qC in ViewBag.QuestionC)
+                                            {
+                                                <tr>
+                                                    <td>@qC.Q_Name</td>
+                                                    <td><input type="radio" name="@qC.Id" id="@qC.Id"></td>
+                                                    <td><input type="radio" name="@qC.Id" id="@qC.Id"></td>
+                                                    <td><input type="radio" name="@qC.Id" id="@qC.Id"></td>
+                                                    <td><input type="radio" name="@qC.Id" id="@qC.Id"></td>
+                                                    <td><textarea></textarea></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    D. Hal-hal lain yang dirasa perlu oleh peserta untuk disampaikan dalam evaluasi ini:
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    1. Situasi/Kondisi Sebelum Training
+                                </div>
+                                <div class="col-md-12">
+                                    @foreach (var qD in ViewBag.QuestionD)
+                                    {
+                                        <div class="form-group">
+                                            <label for="@qD.Q_Name">( @qD.Q_Name )</label>
+                                            <br />
+                                            <textarea id="@qD.Id"></textarea>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    2. Training Summary:
+                                </div>
+                                <div class="col-md-12">
+                                    @foreach (var qE in ViewBag.QuestionE)
+                                    {
+                                        <div class="form-group">
+                                            <label for="@qE.Q_Name">( @qE.Q_Name )</label>
+                                            <br />
+                                            <textarea id="@qE.Id"></textarea>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 mb-2">
+                                    3. Komentar & Kebutuhan Pengembangan Selanjutnya
+                                </div>
+                                <div class="col-md-12">
+                                    @foreach (var qF in ViewBag.QuestionF)
+                                    {
+                                        <div class="form-group">
+                                            <label for="@qF.Q_Name">( @qF.Q_Name )</label>
+                                            <br />
+                                            <textarea id="@qF.Id"></textarea>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="eSave" onclick="eValidation();">Submit</button>
+                            <button type="button" class="btn btn-primary" id="eUpdate" onclick="eValidation();">Update</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+
+@section Scripts{
+    <!-- jQuery -->
+    <script src="~/js/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/js/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/js/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <!-- Select2 -->
+    <script src="~/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+        $('#eRoomText').select2({
+            theme: 'bootstrap4'
+        })
+        $('#ePresentatorText').select2({
+            theme: 'bootstrap4'
+        })
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/js/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/js/plugins/chart.js/Chart.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/js/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/js/adminlte.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="~/js/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/js/plugins/moment/moment.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/js/demo.js"></script>
+    <!-- Custom scripts -->
+    <script src="~/js/ffuser/events.js"></script>
+}
+

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Events";
+}
+
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Event You Attended</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive m-0">
+                <table class="table table-striped table-bordered" id="events">
+                    <thead>
+                        <tr>
+                            <th width="5%">No.</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Presentator</th>
+                            <th>Room</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evt in ViewBag.Events)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@evt.Name</td>
+                                <td>@evt.Date.ToString("dd MMMM yyyy")</td>
+                                <td>@evt.StartTime.ToString("HH:mm") - @evt.EndTime.ToString("HH:mm")</td>
+                                <td>@evt.PresentatorName</td>
+                                <td>@evt.Room</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+
+@section Scripts{
+    <!-- jQuery -->
+    <script src="~/js/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/js/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/js/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <!-- Select2 -->
+    <script src="~/js/plugins/select2/js/select2.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/js/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/js/plugins/chart.js/Chart.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/js/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/js/adminlte.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="~/js/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="~/js/plugins/moment/moment.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/js/demo.js"></script>
+    <!-- Custom scripts -->
+    <script src="~/js/ffpresentator/events.js"></script>
+}
+
